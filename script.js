@@ -1,6 +1,6 @@
 /**
  * DONE: Change sortMoviesByRank() function to sort movies list by rank
- * TODO: Sort movies by id, rank, and title through dynamic function
+ * DONE: Sort movies by id, rank, and title through dynamic function
  * TODO: Create helper function called getMaxMovieObject() for finding max movie
  */
 
@@ -57,7 +57,6 @@ let movies = [
     id: "tt0050083",
   },
 ];
-
 window.onload = function () {
   // Display Movies list
   displayMovies(movies);
@@ -65,6 +64,8 @@ window.onload = function () {
   const idBtn = document.getElementById("btn--id");
   const titleBtn = document.getElementById("btn--title");
   rankingBtn.addEventListener("click", displayByRank);
+  idBtn.addEventListener("click", displayById);
+  titleBtn.addEventListener("click", displayByTitle);
 };
 
 /**
@@ -92,19 +93,18 @@ function displayMovies(movies) {
  * HINT: replace numbers with movies .
  */
 
-function sortMoviesByRank(movies) {
-  // Code from previous sortBestRatingsFirst() function
+/**
+ * Sort movies by an attribute
+ * @param sortAttr pass in 'id', 'title', or 'rank' to sort by
+ */
+function sortMoviesByAttr(movies, sortAttr) {
+  // CODE GOES HERE
   for (let j = 0; j < movies.length - 1; j++) {
     let max_obj = movies[j];
-    // {
-    //   title: "Fight Club",
-    //   rank: 10,
-    //   id: "tt0137523",
-    // }
     let max_location = j;
 
     for (let i = j; i < movies.length; i++) {
-      if (movies[i].rank > max_obj.rank) {
+      if (movies[i][sortAttr] > max_obj[sortAttr]) {
         // Know max AND it's index (location)
         max_obj = movies[i];
         max_location = i;
@@ -116,17 +116,20 @@ function sortMoviesByRank(movies) {
   }
   return movies;
 }
+
 function displayByRank() {
-  let sortByRank = sortMoviesByRank(movies);
+  let sortByRank = sortMoviesByAttr(movies, "rank");
   displayMovies(sortByRank);
 }
 
-/**
- * Sort movies by an attribute
- * @param sortAttr pass in 'id', 'title', or 'rank' to sort by
- */
-function sortMoviesByAttr(movies, sortAttr) {
-  // CODE GOES HERE
+function displayById() {
+  let sortById = sortMoviesByAttr(movies, "id");
+  displayMovies(sortById);
+}
+
+function displayByTitle() {
+  let sortByTitle = sortMoviesByAttr(movies, "title");
+  displayMovies(sortByTitle);
 }
 
 /**
